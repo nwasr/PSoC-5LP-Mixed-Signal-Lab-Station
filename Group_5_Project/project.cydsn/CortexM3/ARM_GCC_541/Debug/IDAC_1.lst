@@ -1,0 +1,1569 @@
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"IDAC_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.IDAC_1_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	IDAC_1_Enable
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	IDAC_1_Enable, %function
+  25              	IDAC_1_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC5\\IDAC_1.c"
+   1:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/IDAC_1.c **** * File Name: IDAC_1.c
+   3:Generated_Source\PSoC5/IDAC_1.c **** * Version 2.0
+   4:Generated_Source\PSoC5/IDAC_1.c **** *
+   5:Generated_Source\PSoC5/IDAC_1.c **** * Description:
+   6:Generated_Source\PSoC5/IDAC_1.c **** *  This file provides the source code to the API for the 8-bit Current 
+   7:Generated_Source\PSoC5/IDAC_1.c **** *  DAC (IDAC8) User Module.
+   8:Generated_Source\PSoC5/IDAC_1.c **** *
+   9:Generated_Source\PSoC5/IDAC_1.c **** * Note:
+  10:Generated_Source\PSoC5/IDAC_1.c **** *  None
+  11:Generated_Source\PSoC5/IDAC_1.c **** *
+  12:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/IDAC_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/IDAC_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC5/IDAC_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/IDAC_1.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/IDAC_1.c **** 
+  19:Generated_Source\PSoC5/IDAC_1.c **** #include "cytypes.h"
+  20:Generated_Source\PSoC5/IDAC_1.c **** #include "IDAC_1.h"   
+  21:Generated_Source\PSoC5/IDAC_1.c **** 
+  22:Generated_Source\PSoC5/IDAC_1.c **** #if (CY_PSOC5A)
+  23:Generated_Source\PSoC5/IDAC_1.c ****     #include <CyLib.h>
+  24:Generated_Source\PSoC5/IDAC_1.c **** #endif /* CY_PSOC5A */
+  25:Generated_Source\PSoC5/IDAC_1.c **** 
+  26:Generated_Source\PSoC5/IDAC_1.c **** 
+  27:Generated_Source\PSoC5/IDAC_1.c **** uint8 IDAC_1_initVar = 0u;
+  28:Generated_Source\PSoC5/IDAC_1.c **** 
+  29:Generated_Source\PSoC5/IDAC_1.c **** 
+  30:Generated_Source\PSoC5/IDAC_1.c **** #if (CY_PSOC5A)
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 2
+
+
+  31:Generated_Source\PSoC5/IDAC_1.c ****     static IDAC_1_LOWPOWER_BACKUP_STRUCT  IDAC_1_lowPowerBackup;
+  32:Generated_Source\PSoC5/IDAC_1.c **** #endif /* CY_PSOC5A */
+  33:Generated_Source\PSoC5/IDAC_1.c **** 
+  34:Generated_Source\PSoC5/IDAC_1.c **** /* Variable to decide whether or not to restore control register in Enable()
+  35:Generated_Source\PSoC5/IDAC_1.c ****    API. This valid only for PSoC5A */
+  36:Generated_Source\PSoC5/IDAC_1.c **** #if (CY_PSOC5A)
+  37:Generated_Source\PSoC5/IDAC_1.c ****     static uint8 IDAC_1_restoreReg = 0u;
+  38:Generated_Source\PSoC5/IDAC_1.c **** #endif /* CY_PSOC5A */
+  39:Generated_Source\PSoC5/IDAC_1.c **** 
+  40:Generated_Source\PSoC5/IDAC_1.c **** 
+  41:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+  42:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_Init
+  43:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+  44:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+  45:Generated_Source\PSoC5/IDAC_1.c **** *  Initialize to the schematic state.
+  46:Generated_Source\PSoC5/IDAC_1.c **** * 
+  47:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+  48:Generated_Source\PSoC5/IDAC_1.c **** *  void:
+  49:Generated_Source\PSoC5/IDAC_1.c **** *
+  50:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+  51:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+  52:Generated_Source\PSoC5/IDAC_1.c **** *
+  53:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+  54:Generated_Source\PSoC5/IDAC_1.c **** *
+  55:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+  56:Generated_Source\PSoC5/IDAC_1.c **** *
+  57:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+  58:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_Init(void) 
+  59:Generated_Source\PSoC5/IDAC_1.c **** {
+  60:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 = (IDAC_1_MODE_I | IDAC_1_DEFAULT_RANGE );
+  61:Generated_Source\PSoC5/IDAC_1.c **** 
+  62:Generated_Source\PSoC5/IDAC_1.c ****     /* Set default data source */
+  63:Generated_Source\PSoC5/IDAC_1.c ****     #if(IDAC_1_DEFAULT_DATA_SRC != 0u )    
+  64:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 = (IDAC_1_DEFAULT_CNTL | IDAC_1_DACBUS_ENABLE);
+  65:Generated_Source\PSoC5/IDAC_1.c ****     #else
+  66:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 = (IDAC_1_DEFAULT_CNTL | IDAC_1_DACBUS_DISABLE);
+  67:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* (IDAC_1_DEFAULT_DATA_SRC != 0u ) */
+  68:Generated_Source\PSoC5/IDAC_1.c ****     
+  69:Generated_Source\PSoC5/IDAC_1.c ****     /*Controls polarity from UDB Control*/
+  70:Generated_Source\PSoC5/IDAC_1.c ****     #if(IDAC_1_DEFAULT_POLARITY == IDAC_1_HARDWARE_CONTROLLED)
+  71:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 |= IDAC_1_IDIR_SRC_UDB;
+  72:Generated_Source\PSoC5/IDAC_1.c ****     #else
+  73:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 |= IDAC_1_DEFAULT_POLARITY;
+  74:Generated_Source\PSoC5/IDAC_1.c ****     #endif/* (IDAC_1_DEFAULT_POLARITY == IDAC_1_HARDWARE_CONTROLLED) */
+  75:Generated_Source\PSoC5/IDAC_1.c ****     /*Controls Current Source from UDB Control*/
+  76:Generated_Source\PSoC5/IDAC_1.c ****     #if(IDAC_1_HARDWARE_ENABLE != 0u ) 
+  77:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 |= IDAC_1_IDIR_CTL_UDB;
+  78:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* (IDAC_1_HARDWARE_ENABLE != 0u ) */ 
+  79:Generated_Source\PSoC5/IDAC_1.c ****     
+  80:Generated_Source\PSoC5/IDAC_1.c ****     /* Set default strobe mode */
+  81:Generated_Source\PSoC5/IDAC_1.c ****     #if(IDAC_1_DEFAULT_STRB != 0u)
+  82:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_Strobe |= IDAC_1_STRB_EN;
+  83:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* (IDAC_1_DEFAULT_STRB != 0u) */
+  84:Generated_Source\PSoC5/IDAC_1.c ****     
+  85:Generated_Source\PSoC5/IDAC_1.c ****     /* Set default speed */
+  86:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_SetSpeed(IDAC_1_DEFAULT_SPEED);
+  87:Generated_Source\PSoC5/IDAC_1.c ****     
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 3
+
+
+  88:Generated_Source\PSoC5/IDAC_1.c ****     /* Set proper DAC trim */
+  89:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_DacTrim();
+  90:Generated_Source\PSoC5/IDAC_1.c ****     
+  91:Generated_Source\PSoC5/IDAC_1.c **** }
+  92:Generated_Source\PSoC5/IDAC_1.c **** 
+  93:Generated_Source\PSoC5/IDAC_1.c **** 
+  94:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+  95:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_Enable
+  96:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+  97:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+  98:Generated_Source\PSoC5/IDAC_1.c **** *  Enable the IDAC8
+  99:Generated_Source\PSoC5/IDAC_1.c **** * 
+ 100:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 101:Generated_Source\PSoC5/IDAC_1.c **** *  void:
+ 102:Generated_Source\PSoC5/IDAC_1.c **** *
+ 103:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 104:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 105:Generated_Source\PSoC5/IDAC_1.c **** *
+ 106:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 107:Generated_Source\PSoC5/IDAC_1.c **** *
+ 108:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 109:Generated_Source\PSoC5/IDAC_1.c **** *
+ 110:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 111:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_Enable(void) 
+ 112:Generated_Source\PSoC5/IDAC_1.c **** {
+  28              		.loc 1 112 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 113:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_PWRMGR |= IDAC_1_ACT_PWR_EN;
+  33              		.loc 1 113 0
+  34 0000 054A     		ldr	r2, .L2
+  35 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  36 0004 43F00103 		orr	r3, r3, #1
+  37 0008 1370     		strb	r3, [r2]
+ 114:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_STBY_PWRMGR |= IDAC_1_STBY_PWR_EN;
+  38              		.loc 1 114 0
+  39 000a 1032     		adds	r2, r2, #16
+  40 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41 000e 43F00103 		orr	r3, r3, #1
+  42 0012 1370     		strb	r3, [r2]
+  43 0014 7047     		bx	lr
+  44              	.L3:
+  45 0016 00BF     		.align	2
+  46              	.L2:
+  47 0018 A8430040 		.word	1073759144
+  48              		.cfi_endproc
+  49              	.LFE1:
+  50              		.size	IDAC_1_Enable, .-IDAC_1_Enable
+  51              		.section	.text.IDAC_1_Stop,"ax",%progbits
+  52              		.align	2
+  53              		.global	IDAC_1_Stop
+  54              		.thumb
+  55              		.thumb_func
+  56              		.type	IDAC_1_Stop, %function
+  57              	IDAC_1_Stop:
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 4
+
+
+  58              	.LFB3:
+ 115:Generated_Source\PSoC5/IDAC_1.c **** 
+ 116:Generated_Source\PSoC5/IDAC_1.c ****     /* This is to restore the value of register CR0 which is saved 
+ 117:Generated_Source\PSoC5/IDAC_1.c ****       in prior to the modification in stop() API */
+ 118:Generated_Source\PSoC5/IDAC_1.c ****     #if (CY_PSOC5A)
+ 119:Generated_Source\PSoC5/IDAC_1.c ****         if(IDAC_1_restoreReg == 1u)
+ 120:Generated_Source\PSoC5/IDAC_1.c ****         {
+ 121:Generated_Source\PSoC5/IDAC_1.c ****             IDAC_1_CR0 = IDAC_1_lowPowerBackup.DACCR0Reg;
+ 122:Generated_Source\PSoC5/IDAC_1.c **** 
+ 123:Generated_Source\PSoC5/IDAC_1.c ****             /* Clear the flag */
+ 124:Generated_Source\PSoC5/IDAC_1.c ****             IDAC_1_restoreReg = 0u;
+ 125:Generated_Source\PSoC5/IDAC_1.c ****         }
+ 126:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* CY_PSOC5A */
+ 127:Generated_Source\PSoC5/IDAC_1.c **** }
+ 128:Generated_Source\PSoC5/IDAC_1.c **** 
+ 129:Generated_Source\PSoC5/IDAC_1.c **** 
+ 130:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 131:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_Start
+ 132:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 133:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 134:Generated_Source\PSoC5/IDAC_1.c **** *  Set power level then turn on IDAC8.
+ 135:Generated_Source\PSoC5/IDAC_1.c **** *
+ 136:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:  
+ 137:Generated_Source\PSoC5/IDAC_1.c **** *  power: Sets power level between off (0) and (3) high power
+ 138:Generated_Source\PSoC5/IDAC_1.c **** *
+ 139:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 140:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 141:Generated_Source\PSoC5/IDAC_1.c **** *
+ 142:Generated_Source\PSoC5/IDAC_1.c **** * Global variables:
+ 143:Generated_Source\PSoC5/IDAC_1.c **** *  IDAC_1_initVar: Is modified when this function is called for 
+ 144:Generated_Source\PSoC5/IDAC_1.c **** *   the first time. Is used to ensure that initialization happens only once.
+ 145:Generated_Source\PSoC5/IDAC_1.c **** *
+ 146:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 147:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_Start(void) 
+ 148:Generated_Source\PSoC5/IDAC_1.c **** {
+ 149:Generated_Source\PSoC5/IDAC_1.c ****     /* Hardware initiazation only needs to occur the first time */
+ 150:Generated_Source\PSoC5/IDAC_1.c ****     if ( IDAC_1_initVar == 0u)  
+ 151:Generated_Source\PSoC5/IDAC_1.c ****     {
+ 152:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_Init();
+ 153:Generated_Source\PSoC5/IDAC_1.c ****         
+ 154:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_initVar = 1u;
+ 155:Generated_Source\PSoC5/IDAC_1.c ****     }
+ 156:Generated_Source\PSoC5/IDAC_1.c ****    
+ 157:Generated_Source\PSoC5/IDAC_1.c ****     /* Enable power to DAC */
+ 158:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_Enable();
+ 159:Generated_Source\PSoC5/IDAC_1.c **** 
+ 160:Generated_Source\PSoC5/IDAC_1.c ****     /* Set default value */
+ 161:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_SetValue(IDAC_1_DEFAULT_DATA);
+ 162:Generated_Source\PSoC5/IDAC_1.c **** 
+ 163:Generated_Source\PSoC5/IDAC_1.c **** }
+ 164:Generated_Source\PSoC5/IDAC_1.c **** 
+ 165:Generated_Source\PSoC5/IDAC_1.c **** 
+ 166:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 167:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_Stop
+ 168:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 169:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 170:Generated_Source\PSoC5/IDAC_1.c **** *  Powers down IDAC8 to lowest power state.
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 5
+
+
+ 171:Generated_Source\PSoC5/IDAC_1.c **** *
+ 172:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 173:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 174:Generated_Source\PSoC5/IDAC_1.c **** *
+ 175:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 176:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 177:Generated_Source\PSoC5/IDAC_1.c **** *
+ 178:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 179:Generated_Source\PSoC5/IDAC_1.c **** *
+ 180:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 181:Generated_Source\PSoC5/IDAC_1.c **** *
+ 182:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 183:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_Stop(void) 
+ 184:Generated_Source\PSoC5/IDAC_1.c **** {
+  59              		.loc 1 184 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+ 185:Generated_Source\PSoC5/IDAC_1.c ****     /* Disble power to DAC */
+ 186:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_PWRMGR &= (uint8)(~IDAC_1_ACT_PWR_EN);
+  64              		.loc 1 186 0
+  65 0000 054A     		ldr	r2, .L5
+  66 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  67 0004 03F0FE03 		and	r3, r3, #254
+  68 0008 1370     		strb	r3, [r2]
+ 187:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_STBY_PWRMGR &= (uint8)(~IDAC_1_STBY_PWR_EN);
+  69              		.loc 1 187 0
+  70 000a 1032     		adds	r2, r2, #16
+  71 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  72 000e 03F0FE03 		and	r3, r3, #254
+  73 0012 1370     		strb	r3, [r2]
+  74 0014 7047     		bx	lr
+  75              	.L6:
+  76 0016 00BF     		.align	2
+  77              	.L5:
+  78 0018 A8430040 		.word	1073759144
+  79              		.cfi_endproc
+  80              	.LFE3:
+  81              		.size	IDAC_1_Stop, .-IDAC_1_Stop
+  82              		.section	.text.IDAC_1_SetSpeed,"ax",%progbits
+  83              		.align	2
+  84              		.global	IDAC_1_SetSpeed
+  85              		.thumb
+  86              		.thumb_func
+  87              		.type	IDAC_1_SetSpeed, %function
+  88              	IDAC_1_SetSpeed:
+  89              	.LFB4:
+ 188:Generated_Source\PSoC5/IDAC_1.c ****     
+ 189:Generated_Source\PSoC5/IDAC_1.c ****     #if (CY_PSOC5A)
+ 190:Generated_Source\PSoC5/IDAC_1.c ****     
+ 191:Generated_Source\PSoC5/IDAC_1.c ****         /* Set the global variable  */
+ 192:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_restoreReg = 1u;
+ 193:Generated_Source\PSoC5/IDAC_1.c **** 
+ 194:Generated_Source\PSoC5/IDAC_1.c ****         /* Save the control register and then Clear it. */
+ 195:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_lowPowerBackup.DACCR0Reg = IDAC_1_CR0;
+ 196:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR0 = (IDAC_1_MODE_I | IDAC_1_RANGE_3 | IDAC_1_HS_HIGHSPEED);
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 6
+
+
+ 197:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* CY_PSOC5A */
+ 198:Generated_Source\PSoC5/IDAC_1.c **** }
+ 199:Generated_Source\PSoC5/IDAC_1.c **** 
+ 200:Generated_Source\PSoC5/IDAC_1.c **** 
+ 201:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 202:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_SetSpeed
+ 203:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 204:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 205:Generated_Source\PSoC5/IDAC_1.c **** *  Set DAC speed
+ 206:Generated_Source\PSoC5/IDAC_1.c **** *
+ 207:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 208:Generated_Source\PSoC5/IDAC_1.c **** *  power: Sets speed value
+ 209:Generated_Source\PSoC5/IDAC_1.c **** *
+ 210:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 211:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 212:Generated_Source\PSoC5/IDAC_1.c **** *
+ 213:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 214:Generated_Source\PSoC5/IDAC_1.c **** *
+ 215:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 216:Generated_Source\PSoC5/IDAC_1.c **** *
+ 217:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 218:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_SetSpeed(uint8 speed) 
+ 219:Generated_Source\PSoC5/IDAC_1.c **** {
+  90              		.loc 1 219 0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 0, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  95              	.LVL0:
+ 220:Generated_Source\PSoC5/IDAC_1.c ****     /* Clear power mask then write in new value */
+ 221:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 &= (uint8)(~IDAC_1_HS_MASK);
+  96              		.loc 1 221 0
+  97 0000 054B     		ldr	r3, .L8
+  98 0002 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  99 0004 02F0FD02 		and	r2, r2, #253
+ 100 0008 1A70     		strb	r2, [r3]
+ 222:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 |=  ( speed & IDAC_1_HS_MASK);
+ 101              		.loc 1 222 0
+ 102 000a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 103 000c 00F00200 		and	r0, r0, #2
+ 104              	.LVL1:
+ 105 0010 1043     		orrs	r0, r0, r2
+ 106 0012 1870     		strb	r0, [r3]
+ 107 0014 7047     		bx	lr
+ 108              	.L9:
+ 109 0016 00BF     		.align	2
+ 110              	.L8:
+ 111 0018 20580040 		.word	1073764384
+ 112              		.cfi_endproc
+ 113              	.LFE4:
+ 114              		.size	IDAC_1_SetSpeed, .-IDAC_1_SetSpeed
+ 115              		.section	.text.IDAC_1_SetValue,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	IDAC_1_SetValue
+ 118              		.thumb
+ 119              		.thumb_func
+ 120              		.type	IDAC_1_SetValue, %function
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 7
+
+
+ 121              	IDAC_1_SetValue:
+ 122              	.LFB7:
+ 223:Generated_Source\PSoC5/IDAC_1.c **** }
+ 224:Generated_Source\PSoC5/IDAC_1.c **** 
+ 225:Generated_Source\PSoC5/IDAC_1.c **** 
+ 226:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 227:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_SetPolarity
+ 228:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 229:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 230:Generated_Source\PSoC5/IDAC_1.c **** *  Sets IDAC to Sink or Source current.
+ 231:Generated_Source\PSoC5/IDAC_1.c **** *  
+ 232:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 233:Generated_Source\PSoC5/IDAC_1.c **** *  Polarity: Sets the IDAC to Sink or Source 
+ 234:Generated_Source\PSoC5/IDAC_1.c **** *  0x00 - Source
+ 235:Generated_Source\PSoC5/IDAC_1.c **** *  0x04 - Sink
+ 236:Generated_Source\PSoC5/IDAC_1.c **** *
+ 237:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 238:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 239:Generated_Source\PSoC5/IDAC_1.c **** *
+ 240:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 241:Generated_Source\PSoC5/IDAC_1.c **** *
+ 242:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 243:Generated_Source\PSoC5/IDAC_1.c **** *
+ 244:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 245:Generated_Source\PSoC5/IDAC_1.c **** #if(IDAC_1_DEFAULT_POLARITY != IDAC_1_HARDWARE_CONTROLLED)
+ 246:Generated_Source\PSoC5/IDAC_1.c ****     void IDAC_1_SetPolarity(uint8 polarity) 
+ 247:Generated_Source\PSoC5/IDAC_1.c ****     {
+ 248:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 &= (uint8)(~IDAC_1_IDIR_MASK);                /* clear polarity bit */
+ 249:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 |= (polarity & IDAC_1_IDIR_MASK);             /* set new value */
+ 250:Generated_Source\PSoC5/IDAC_1.c ****     
+ 251:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_DacTrim();
+ 252:Generated_Source\PSoC5/IDAC_1.c ****     }
+ 253:Generated_Source\PSoC5/IDAC_1.c **** #endif/*(IDAC_1_DEFAULT_POLARITY != IDAC_1_HARDWARE_CONTROLLED)*/
+ 254:Generated_Source\PSoC5/IDAC_1.c **** 
+ 255:Generated_Source\PSoC5/IDAC_1.c **** 
+ 256:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 257:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_SetRange
+ 258:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 259:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 260:Generated_Source\PSoC5/IDAC_1.c **** *  Set current range
+ 261:Generated_Source\PSoC5/IDAC_1.c **** *
+ 262:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 263:Generated_Source\PSoC5/IDAC_1.c **** *  Range: Sets on of four valid ranges.
+ 264:Generated_Source\PSoC5/IDAC_1.c **** *
+ 265:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 266:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 267:Generated_Source\PSoC5/IDAC_1.c **** *
+ 268:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 269:Generated_Source\PSoC5/IDAC_1.c **** *
+ 270:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 271:Generated_Source\PSoC5/IDAC_1.c **** *
+ 272:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 273:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_SetRange(uint8 range) 
+ 274:Generated_Source\PSoC5/IDAC_1.c **** {
+ 275:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 &= (uint8)(~IDAC_1_RANGE_MASK);       /* Clear existing mode */
+ 276:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 |= ( range & IDAC_1_RANGE_MASK );     /*  Set Range  */
+ 277:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_DacTrim();
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 8
+
+
+ 278:Generated_Source\PSoC5/IDAC_1.c **** }
+ 279:Generated_Source\PSoC5/IDAC_1.c **** 
+ 280:Generated_Source\PSoC5/IDAC_1.c **** 
+ 281:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 282:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_SetValue
+ 283:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 284:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 285:Generated_Source\PSoC5/IDAC_1.c **** *  Set DAC value
+ 286:Generated_Source\PSoC5/IDAC_1.c **** *
+ 287:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 288:Generated_Source\PSoC5/IDAC_1.c **** *  value: Sets DAC value between 0 and 255.
+ 289:Generated_Source\PSoC5/IDAC_1.c **** *
+ 290:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 291:Generated_Source\PSoC5/IDAC_1.c **** *  (void)
+ 292:Generated_Source\PSoC5/IDAC_1.c **** *
+ 293:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 294:Generated_Source\PSoC5/IDAC_1.c **** *
+ 295:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 296:Generated_Source\PSoC5/IDAC_1.c **** *
+ 297:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 298:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_SetValue(uint8 value) 
+ 299:Generated_Source\PSoC5/IDAC_1.c **** {
+ 123              		.loc 1 299 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127              		@ link register save eliminated.
+ 128              	.LVL2:
+ 300:Generated_Source\PSoC5/IDAC_1.c **** 
+ 301:Generated_Source\PSoC5/IDAC_1.c ****     #if (CY_PSOC5A)
+ 302:Generated_Source\PSoC5/IDAC_1.c ****         uint8 IDAC_1_intrStatus = CyEnterCriticalSection();
+ 303:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* CY_PSOC5A */
+ 304:Generated_Source\PSoC5/IDAC_1.c **** 
+ 305:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_Data = value;         /*  Set Value  */
+ 129              		.loc 1 305 0
+ 130 0000 014B     		ldr	r3, .L11
+ 131 0002 1870     		strb	r0, [r3]
+ 132 0004 7047     		bx	lr
+ 133              	.L12:
+ 134 0006 00BF     		.align	2
+ 135              	.L11:
+ 136 0008 805B0040 		.word	1073765248
+ 137              		.cfi_endproc
+ 138              	.LFE7:
+ 139              		.size	IDAC_1_SetValue, .-IDAC_1_SetValue
+ 140              		.section	.text.IDAC_1_DacTrim,"ax",%progbits
+ 141              		.align	2
+ 142              		.global	IDAC_1_DacTrim
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.type	IDAC_1_DacTrim, %function
+ 146              	IDAC_1_DacTrim:
+ 147              	.LFB8:
+ 306:Generated_Source\PSoC5/IDAC_1.c ****     
+ 307:Generated_Source\PSoC5/IDAC_1.c ****     /* PSOC5A silicons require a double write */
+ 308:Generated_Source\PSoC5/IDAC_1.c ****     #if (CY_PSOC5A)
+ 309:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_Data = value;
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 9
+
+
+ 310:Generated_Source\PSoC5/IDAC_1.c ****         CyExitCriticalSection(IDAC_1_intrStatus);
+ 311:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* CY_PSOC5A */
+ 312:Generated_Source\PSoC5/IDAC_1.c **** }
+ 313:Generated_Source\PSoC5/IDAC_1.c **** 
+ 314:Generated_Source\PSoC5/IDAC_1.c **** 
+ 315:Generated_Source\PSoC5/IDAC_1.c **** /*******************************************************************************
+ 316:Generated_Source\PSoC5/IDAC_1.c **** * Function Name: IDAC_1_DacTrim
+ 317:Generated_Source\PSoC5/IDAC_1.c **** ********************************************************************************
+ 318:Generated_Source\PSoC5/IDAC_1.c **** * Summary:
+ 319:Generated_Source\PSoC5/IDAC_1.c **** *  Set the trim value for the given range.
+ 320:Generated_Source\PSoC5/IDAC_1.c **** *
+ 321:Generated_Source\PSoC5/IDAC_1.c **** * Parameters:
+ 322:Generated_Source\PSoC5/IDAC_1.c **** *  None
+ 323:Generated_Source\PSoC5/IDAC_1.c **** *
+ 324:Generated_Source\PSoC5/IDAC_1.c **** * Return:
+ 325:Generated_Source\PSoC5/IDAC_1.c **** *  (void) 
+ 326:Generated_Source\PSoC5/IDAC_1.c **** *
+ 327:Generated_Source\PSoC5/IDAC_1.c **** * Theory:
+ 328:Generated_Source\PSoC5/IDAC_1.c **** *  Trim values for the IDAC blocks are stored in the "Customer Table" area in 
+ 329:Generated_Source\PSoC5/IDAC_1.c **** *  Row 1 of the Hidden Flash.  There are 8 bytes of trim data for each 
+ 330:Generated_Source\PSoC5/IDAC_1.c **** *  IDAC block.
+ 331:Generated_Source\PSoC5/IDAC_1.c **** *  The values are:
+ 332:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, min range, Sourcing
+ 333:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, min range, Sinking
+ 334:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, med range, Sourcing
+ 335:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, med range, Sinking
+ 336:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, max range, Sourcing
+ 337:Generated_Source\PSoC5/IDAC_1.c **** *       I Gain offset, max range, Sinking
+ 338:Generated_Source\PSoC5/IDAC_1.c **** *       V Gain offset, 1V range
+ 339:Generated_Source\PSoC5/IDAC_1.c **** *       V Gain offset, 4V range
+ 340:Generated_Source\PSoC5/IDAC_1.c **** *
+ 341:Generated_Source\PSoC5/IDAC_1.c **** * Side Effects:
+ 342:Generated_Source\PSoC5/IDAC_1.c **** *
+ 343:Generated_Source\PSoC5/IDAC_1.c **** *******************************************************************************/
+ 344:Generated_Source\PSoC5/IDAC_1.c **** void IDAC_1_DacTrim(void) 
+ 345:Generated_Source\PSoC5/IDAC_1.c **** {
+ 148              		.loc 1 345 0
+ 149              		.cfi_startproc
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 0, uses_anonymous_args = 0
+ 152              		@ link register save eliminated.
+ 346:Generated_Source\PSoC5/IDAC_1.c ****     uint8 mode;
+ 347:Generated_Source\PSoC5/IDAC_1.c **** 
+ 348:Generated_Source\PSoC5/IDAC_1.c ****     mode = ((IDAC_1_CR0 & IDAC_1_RANGE_MASK) >> 1u);
+ 153              		.loc 1 348 0
+ 154 0000 094B     		ldr	r3, .L15
+ 155 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 156 0004 03F00C03 		and	r3, r3, #12
+ 157 0008 5B08     		lsrs	r3, r3, #1
+ 158              	.LVL3:
+ 349:Generated_Source\PSoC5/IDAC_1.c ****     
+ 350:Generated_Source\PSoC5/IDAC_1.c ****     if((IDAC_1_IDIR_MASK & IDAC_1_CR1) == IDAC_1_IDIR_SINK)
+ 159              		.loc 1 350 0
+ 160 000a 084A     		ldr	r2, .L15+4
+ 161 000c 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 162 000e 12F0040F 		tst	r2, #4
+ 163 0012 00D0     		beq	.L14
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 10
+
+
+ 351:Generated_Source\PSoC5/IDAC_1.c ****     {
+ 352:Generated_Source\PSoC5/IDAC_1.c ****         mode++;
+ 164              		.loc 1 352 0
+ 165 0014 0133     		adds	r3, r3, #1
+ 166              	.LVL4:
+ 167              	.L14:
+ 353:Generated_Source\PSoC5/IDAC_1.c ****     }
+ 354:Generated_Source\PSoC5/IDAC_1.c **** 
+ 355:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_TR = CY_GET_XTND_REG8((uint8 *)(IDAC_1_DAC_TRIM_BASE + mode));
+ 168              		.loc 1 355 0
+ 169 0016 03F19243 		add	r3, r3, #1224736768
+ 170              	.LVL5:
+ 171 001a 93F82031 		ldrb	r3, [r3, #288]	@ zero_extendqisi2
+ 172 001e DBB2     		uxtb	r3, r3
+ 173 0020 034A     		ldr	r2, .L15+8
+ 174 0022 1370     		strb	r3, [r2]
+ 175 0024 7047     		bx	lr
+ 176              	.L16:
+ 177 0026 00BF     		.align	2
+ 178              	.L15:
+ 179 0028 20580040 		.word	1073764384
+ 180 002c 21580040 		.word	1073764385
+ 181 0030 08460040 		.word	1073759752
+ 182              		.cfi_endproc
+ 183              	.LFE8:
+ 184              		.size	IDAC_1_DacTrim, .-IDAC_1_DacTrim
+ 185              		.section	.text.IDAC_1_Init,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	IDAC_1_Init
+ 188              		.thumb
+ 189              		.thumb_func
+ 190              		.type	IDAC_1_Init, %function
+ 191              	IDAC_1_Init:
+ 192              	.LFB0:
+  59:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 = (IDAC_1_MODE_I | IDAC_1_DEFAULT_RANGE );
+ 193              		.loc 1 59 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197 0000 08B5     		push	{r3, lr}
+ 198              		.cfi_def_cfa_offset 8
+ 199              		.cfi_offset 3, -8
+ 200              		.cfi_offset 14, -4
+  60:Generated_Source\PSoC5/IDAC_1.c **** 
+ 201              		.loc 1 60 0
+ 202 0002 1022     		movs	r2, #16
+ 203 0004 064B     		ldr	r3, .L19
+ 204 0006 1A70     		strb	r2, [r3]
+  66:Generated_Source\PSoC5/IDAC_1.c ****     #endif /* (IDAC_1_DEFAULT_DATA_SRC != 0u ) */
+ 205              		.loc 1 66 0
+ 206 0008 0133     		adds	r3, r3, #1
+ 207 000a 0020     		movs	r0, #0
+ 208 000c 1870     		strb	r0, [r3]
+  73:Generated_Source\PSoC5/IDAC_1.c ****     #endif/* (IDAC_1_DEFAULT_POLARITY == IDAC_1_HARDWARE_CONTROLLED) */
+ 209              		.loc 1 73 0
+ 210 000e 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 211 0010 42F00402 		orr	r2, r2, #4
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 11
+
+
+ 212 0014 1A70     		strb	r2, [r3]
+  86:Generated_Source\PSoC5/IDAC_1.c ****     
+ 213              		.loc 1 86 0
+ 214 0016 FFF7FEFF 		bl	IDAC_1_SetSpeed
+ 215              	.LVL6:
+  89:Generated_Source\PSoC5/IDAC_1.c ****     
+ 216              		.loc 1 89 0
+ 217 001a FFF7FEFF 		bl	IDAC_1_DacTrim
+ 218              	.LVL7:
+ 219 001e 08BD     		pop	{r3, pc}
+ 220              	.L20:
+ 221              		.align	2
+ 222              	.L19:
+ 223 0020 20580040 		.word	1073764384
+ 224              		.cfi_endproc
+ 225              	.LFE0:
+ 226              		.size	IDAC_1_Init, .-IDAC_1_Init
+ 227              		.section	.text.IDAC_1_Start,"ax",%progbits
+ 228              		.align	2
+ 229              		.global	IDAC_1_Start
+ 230              		.thumb
+ 231              		.thumb_func
+ 232              		.type	IDAC_1_Start, %function
+ 233              	IDAC_1_Start:
+ 234              	.LFB2:
+ 148:Generated_Source\PSoC5/IDAC_1.c ****     /* Hardware initiazation only needs to occur the first time */
+ 235              		.loc 1 148 0
+ 236              		.cfi_startproc
+ 237              		@ args = 0, pretend = 0, frame = 0
+ 238              		@ frame_needed = 0, uses_anonymous_args = 0
+ 239 0000 08B5     		push	{r3, lr}
+ 240              		.cfi_def_cfa_offset 8
+ 241              		.cfi_offset 3, -8
+ 242              		.cfi_offset 14, -4
+ 150:Generated_Source\PSoC5/IDAC_1.c ****     {
+ 243              		.loc 1 150 0
+ 244 0002 074B     		ldr	r3, .L24
+ 245 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 246 0006 23B9     		cbnz	r3, .L22
+ 152:Generated_Source\PSoC5/IDAC_1.c ****         
+ 247              		.loc 1 152 0
+ 248 0008 FFF7FEFF 		bl	IDAC_1_Init
+ 249              	.LVL8:
+ 154:Generated_Source\PSoC5/IDAC_1.c ****     }
+ 250              		.loc 1 154 0
+ 251 000c 0122     		movs	r2, #1
+ 252 000e 044B     		ldr	r3, .L24
+ 253 0010 1A70     		strb	r2, [r3]
+ 254              	.L22:
+ 158:Generated_Source\PSoC5/IDAC_1.c **** 
+ 255              		.loc 1 158 0
+ 256 0012 FFF7FEFF 		bl	IDAC_1_Enable
+ 257              	.LVL9:
+ 161:Generated_Source\PSoC5/IDAC_1.c **** 
+ 258              		.loc 1 161 0
+ 259 0016 7820     		movs	r0, #120
+ 260 0018 FFF7FEFF 		bl	IDAC_1_SetValue
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 12
+
+
+ 261              	.LVL10:
+ 262 001c 08BD     		pop	{r3, pc}
+ 263              	.L25:
+ 264 001e 00BF     		.align	2
+ 265              	.L24:
+ 266 0020 00000000 		.word	.LANCHOR0
+ 267              		.cfi_endproc
+ 268              	.LFE2:
+ 269              		.size	IDAC_1_Start, .-IDAC_1_Start
+ 270              		.section	.text.IDAC_1_SetPolarity,"ax",%progbits
+ 271              		.align	2
+ 272              		.global	IDAC_1_SetPolarity
+ 273              		.thumb
+ 274              		.thumb_func
+ 275              		.type	IDAC_1_SetPolarity, %function
+ 276              	IDAC_1_SetPolarity:
+ 277              	.LFB5:
+ 247:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 &= (uint8)(~IDAC_1_IDIR_MASK);                /* clear polarity bit */
+ 278              		.loc 1 247 0
+ 279              		.cfi_startproc
+ 280              		@ args = 0, pretend = 0, frame = 0
+ 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 282              	.LVL11:
+ 283 0000 08B5     		push	{r3, lr}
+ 284              		.cfi_def_cfa_offset 8
+ 285              		.cfi_offset 3, -8
+ 286              		.cfi_offset 14, -4
+ 248:Generated_Source\PSoC5/IDAC_1.c ****         IDAC_1_CR1 |= (polarity & IDAC_1_IDIR_MASK);             /* set new value */
+ 287              		.loc 1 248 0
+ 288 0002 064B     		ldr	r3, .L28
+ 289 0004 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 290 0006 02F0FB02 		and	r2, r2, #251
+ 291 000a 1A70     		strb	r2, [r3]
+ 249:Generated_Source\PSoC5/IDAC_1.c ****     
+ 292              		.loc 1 249 0
+ 293 000c 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 294 000e 00F00400 		and	r0, r0, #4
+ 295              	.LVL12:
+ 296 0012 1043     		orrs	r0, r0, r2
+ 297 0014 1870     		strb	r0, [r3]
+ 251:Generated_Source\PSoC5/IDAC_1.c ****     }
+ 298              		.loc 1 251 0
+ 299 0016 FFF7FEFF 		bl	IDAC_1_DacTrim
+ 300              	.LVL13:
+ 301 001a 08BD     		pop	{r3, pc}
+ 302              	.L29:
+ 303              		.align	2
+ 304              	.L28:
+ 305 001c 21580040 		.word	1073764385
+ 306              		.cfi_endproc
+ 307              	.LFE5:
+ 308              		.size	IDAC_1_SetPolarity, .-IDAC_1_SetPolarity
+ 309              		.section	.text.IDAC_1_SetRange,"ax",%progbits
+ 310              		.align	2
+ 311              		.global	IDAC_1_SetRange
+ 312              		.thumb
+ 313              		.thumb_func
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 13
+
+
+ 314              		.type	IDAC_1_SetRange, %function
+ 315              	IDAC_1_SetRange:
+ 316              	.LFB6:
+ 274:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 &= (uint8)(~IDAC_1_RANGE_MASK);       /* Clear existing mode */
+ 317              		.loc 1 274 0
+ 318              		.cfi_startproc
+ 319              		@ args = 0, pretend = 0, frame = 0
+ 320              		@ frame_needed = 0, uses_anonymous_args = 0
+ 321              	.LVL14:
+ 322 0000 08B5     		push	{r3, lr}
+ 323              		.cfi_def_cfa_offset 8
+ 324              		.cfi_offset 3, -8
+ 325              		.cfi_offset 14, -4
+ 275:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_CR0 |= ( range & IDAC_1_RANGE_MASK );     /*  Set Range  */
+ 326              		.loc 1 275 0
+ 327 0002 064B     		ldr	r3, .L32
+ 328 0004 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 329 0006 02F0F302 		and	r2, r2, #243
+ 330 000a 1A70     		strb	r2, [r3]
+ 276:Generated_Source\PSoC5/IDAC_1.c ****     IDAC_1_DacTrim();
+ 331              		.loc 1 276 0
+ 332 000c 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 333 000e 00F00C00 		and	r0, r0, #12
+ 334              	.LVL15:
+ 335 0012 1043     		orrs	r0, r0, r2
+ 336 0014 1870     		strb	r0, [r3]
+ 277:Generated_Source\PSoC5/IDAC_1.c **** }
+ 337              		.loc 1 277 0
+ 338 0016 FFF7FEFF 		bl	IDAC_1_DacTrim
+ 339              	.LVL16:
+ 340 001a 08BD     		pop	{r3, pc}
+ 341              	.L33:
+ 342              		.align	2
+ 343              	.L32:
+ 344 001c 20580040 		.word	1073764384
+ 345              		.cfi_endproc
+ 346              	.LFE6:
+ 347              		.size	IDAC_1_SetRange, .-IDAC_1_SetRange
+ 348              		.global	IDAC_1_initVar
+ 349              		.bss
+ 350              		.set	.LANCHOR0,. + 0
+ 351              		.type	IDAC_1_initVar, %object
+ 352              		.size	IDAC_1_initVar, 1
+ 353              	IDAC_1_initVar:
+ 354 0000 00       		.space	1
+ 355              		.text
+ 356              	.Letext0:
+ 357              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 358              		.section	.debug_info,"",%progbits
+ 359              	.Ldebug_info0:
+ 360 0000 06020000 		.4byte	0x206
+ 361 0004 0400     		.2byte	0x4
+ 362 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 363 000a 04       		.byte	0x4
+ 364 000b 01       		.uleb128 0x1
+ 365 000c A0010000 		.4byte	.LASF27
+ 366 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 14
+
+
+ 367 0011 6A010000 		.4byte	.LASF28
+ 368 0015 52000000 		.4byte	.LASF29
+ 369 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 370 001d 00000000 		.4byte	0
+ 371 0021 00000000 		.4byte	.Ldebug_line0
+ 372 0025 02       		.uleb128 0x2
+ 373 0026 01       		.byte	0x1
+ 374 0027 06       		.byte	0x6
+ 375 0028 E1000000 		.4byte	.LASF0
+ 376 002c 02       		.uleb128 0x2
+ 377 002d 01       		.byte	0x1
+ 378 002e 08       		.byte	0x8
+ 379 002f BC000000 		.4byte	.LASF1
+ 380 0033 02       		.uleb128 0x2
+ 381 0034 02       		.byte	0x2
+ 382 0035 05       		.byte	0x5
+ 383 0036 00000000 		.4byte	.LASF2
+ 384 003a 02       		.uleb128 0x2
+ 385 003b 02       		.byte	0x2
+ 386 003c 07       		.byte	0x7
+ 387 003d 27010000 		.4byte	.LASF3
+ 388 0041 02       		.uleb128 0x2
+ 389 0042 04       		.byte	0x4
+ 390 0043 05       		.byte	0x5
+ 391 0044 89000000 		.4byte	.LASF4
+ 392 0048 02       		.uleb128 0x2
+ 393 0049 04       		.byte	0x4
+ 394 004a 07       		.byte	0x7
+ 395 004b 51010000 		.4byte	.LASF5
+ 396 004f 02       		.uleb128 0x2
+ 397 0050 08       		.byte	0x8
+ 398 0051 05       		.byte	0x5
+ 399 0052 44000000 		.4byte	.LASF6
+ 400 0056 02       		.uleb128 0x2
+ 401 0057 08       		.byte	0x8
+ 402 0058 07       		.byte	0x7
+ 403 0059 FD000000 		.4byte	.LASF7
+ 404 005d 03       		.uleb128 0x3
+ 405 005e 04       		.byte	0x4
+ 406 005f 05       		.byte	0x5
+ 407 0060 696E7400 		.ascii	"int\000"
+ 408 0064 02       		.uleb128 0x2
+ 409 0065 04       		.byte	0x4
+ 410 0066 07       		.byte	0x7
+ 411 0067 14010000 		.4byte	.LASF8
+ 412 006b 04       		.uleb128 0x4
+ 413 006c 38000000 		.4byte	.LASF12
+ 414 0070 02       		.byte	0x2
+ 415 0071 E401     		.2byte	0x1e4
+ 416 0073 2C000000 		.4byte	0x2c
+ 417 0077 02       		.uleb128 0x2
+ 418 0078 04       		.byte	0x4
+ 419 0079 04       		.byte	0x4
+ 420 007a 3E000000 		.4byte	.LASF9
+ 421 007e 02       		.uleb128 0x2
+ 422 007f 08       		.byte	0x8
+ 423 0080 04       		.byte	0x4
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 15
+
+
+ 424 0081 63010000 		.4byte	.LASF10
+ 425 0085 02       		.uleb128 0x2
+ 426 0086 01       		.byte	0x1
+ 427 0087 08       		.byte	0x8
+ 428 0088 3A010000 		.4byte	.LASF11
+ 429 008c 04       		.uleb128 0x4
+ 430 008d 4C010000 		.4byte	.LASF13
+ 431 0091 02       		.byte	0x2
+ 432 0092 8E02     		.2byte	0x28e
+ 433 0094 98000000 		.4byte	0x98
+ 434 0098 05       		.uleb128 0x5
+ 435 0099 6B000000 		.4byte	0x6b
+ 436 009d 06       		.uleb128 0x6
+ 437 009e D3000000 		.4byte	.LASF14
+ 438 00a2 01       		.byte	0x1
+ 439 00a3 6F       		.byte	0x6f
+ 440 00a4 00000000 		.4byte	.LFB1
+ 441 00a8 1C000000 		.4byte	.LFE1-.LFB1
+ 442 00ac 01       		.uleb128 0x1
+ 443 00ad 9C       		.byte	0x9c
+ 444 00ae 06       		.uleb128 0x6
+ 445 00af 2E020000 		.4byte	.LASF15
+ 446 00b3 01       		.byte	0x1
+ 447 00b4 B7       		.byte	0xb7
+ 448 00b5 00000000 		.4byte	.LFB3
+ 449 00b9 1C000000 		.4byte	.LFE3-.LFB3
+ 450 00bd 01       		.uleb128 0x1
+ 451 00be 9C       		.byte	0x9c
+ 452 00bf 07       		.uleb128 0x7
+ 453 00c0 90010000 		.4byte	.LASF16
+ 454 00c4 01       		.byte	0x1
+ 455 00c5 DA       		.byte	0xda
+ 456 00c6 00000000 		.4byte	.LFB4
+ 457 00ca 1C000000 		.4byte	.LFE4-.LFB4
+ 458 00ce 01       		.uleb128 0x1
+ 459 00cf 9C       		.byte	0x9c
+ 460 00d0 E4000000 		.4byte	0xe4
+ 461 00d4 08       		.uleb128 0x8
+ 462 00d5 21010000 		.4byte	.LASF18
+ 463 00d9 01       		.byte	0x1
+ 464 00da DA       		.byte	0xda
+ 465 00db 6B000000 		.4byte	0x6b
+ 466 00df 00000000 		.4byte	.LLST0
+ 467 00e3 00       		.byte	0
+ 468 00e4 09       		.uleb128 0x9
+ 469 00e5 ED000000 		.4byte	.LASF17
+ 470 00e9 01       		.byte	0x1
+ 471 00ea 2A01     		.2byte	0x12a
+ 472 00ec 00000000 		.4byte	.LFB7
+ 473 00f0 0C000000 		.4byte	.LFE7-.LFB7
+ 474 00f4 01       		.uleb128 0x1
+ 475 00f5 9C       		.byte	0x9c
+ 476 00f6 09010000 		.4byte	0x109
+ 477 00fa 0A       		.uleb128 0xa
+ 478 00fb 32000000 		.4byte	.LASF19
+ 479 00ff 01       		.byte	0x1
+ 480 0100 2A01     		.2byte	0x12a
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 16
+
+
+ 481 0102 6B000000 		.4byte	0x6b
+ 482 0106 01       		.uleb128 0x1
+ 483 0107 50       		.byte	0x50
+ 484 0108 00       		.byte	0
+ 485 0109 09       		.uleb128 0x9
+ 486 010a A1000000 		.4byte	.LASF20
+ 487 010e 01       		.byte	0x1
+ 488 010f 5801     		.2byte	0x158
+ 489 0111 00000000 		.4byte	.LFB8
+ 490 0115 34000000 		.4byte	.LFE8-.LFB8
+ 491 0119 01       		.uleb128 0x1
+ 492 011a 9C       		.byte	0x9c
+ 493 011b 30010000 		.4byte	0x130
+ 494 011f 0B       		.uleb128 0xb
+ 495 0120 2D000000 		.4byte	.LASF30
+ 496 0124 01       		.byte	0x1
+ 497 0125 5A01     		.2byte	0x15a
+ 498 0127 6B000000 		.4byte	0x6b
+ 499 012b 21000000 		.4byte	.LLST1
+ 500 012f 00       		.byte	0
+ 501 0130 07       		.uleb128 0x7
+ 502 0131 B0000000 		.4byte	.LASF21
+ 503 0135 01       		.byte	0x1
+ 504 0136 3A       		.byte	0x3a
+ 505 0137 00000000 		.4byte	.LFB0
+ 506 013b 24000000 		.4byte	.LFE0-.LFB0
+ 507 013f 01       		.uleb128 0x1
+ 508 0140 9C       		.byte	0x9c
+ 509 0141 62010000 		.4byte	0x162
+ 510 0145 0C       		.uleb128 0xc
+ 511 0146 1A000000 		.4byte	.LVL6
+ 512 014a BF000000 		.4byte	0xbf
+ 513 014e 58010000 		.4byte	0x158
+ 514 0152 0D       		.uleb128 0xd
+ 515 0153 01       		.uleb128 0x1
+ 516 0154 50       		.byte	0x50
+ 517 0155 01       		.uleb128 0x1
+ 518 0156 30       		.byte	0x30
+ 519 0157 00       		.byte	0
+ 520 0158 0E       		.uleb128 0xe
+ 521 0159 1E000000 		.4byte	.LVL7
+ 522 015d 09010000 		.4byte	0x109
+ 523 0161 00       		.byte	0
+ 524 0162 07       		.uleb128 0x7
+ 525 0163 3F010000 		.4byte	.LASF22
+ 526 0167 01       		.byte	0x1
+ 527 0168 93       		.byte	0x93
+ 528 0169 00000000 		.4byte	.LFB2
+ 529 016d 24000000 		.4byte	.LFE2-.LFB2
+ 530 0171 01       		.uleb128 0x1
+ 531 0172 9C       		.byte	0x9c
+ 532 0173 9A010000 		.4byte	0x19a
+ 533 0177 0E       		.uleb128 0xe
+ 534 0178 0C000000 		.4byte	.LVL8
+ 535 017c 30010000 		.4byte	0x130
+ 536 0180 0E       		.uleb128 0xe
+ 537 0181 16000000 		.4byte	.LVL9
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 17
+
+
+ 538 0185 9D000000 		.4byte	0x9d
+ 539 0189 0F       		.uleb128 0xf
+ 540 018a 1C000000 		.4byte	.LVL10
+ 541 018e E4000000 		.4byte	0xe4
+ 542 0192 0D       		.uleb128 0xd
+ 543 0193 01       		.uleb128 0x1
+ 544 0194 50       		.byte	0x50
+ 545 0195 02       		.uleb128 0x2
+ 546 0196 08       		.byte	0x8
+ 547 0197 78       		.byte	0x78
+ 548 0198 00       		.byte	0
+ 549 0199 00       		.byte	0
+ 550 019a 07       		.uleb128 0x7
+ 551 019b 0A000000 		.4byte	.LASF23
+ 552 019f 01       		.byte	0x1
+ 553 01a0 F6       		.byte	0xf6
+ 554 01a1 00000000 		.4byte	.LFB5
+ 555 01a5 20000000 		.4byte	.LFE5-.LFB5
+ 556 01a9 01       		.uleb128 0x1
+ 557 01aa 9C       		.byte	0x9c
+ 558 01ab C8010000 		.4byte	0x1c8
+ 559 01af 08       		.uleb128 0x8
+ 560 01b0 CA000000 		.4byte	.LASF24
+ 561 01b4 01       		.byte	0x1
+ 562 01b5 F6       		.byte	0xf6
+ 563 01b6 6B000000 		.4byte	0x6b
+ 564 01ba 34000000 		.4byte	.LLST2
+ 565 01be 0E       		.uleb128 0xe
+ 566 01bf 1A000000 		.4byte	.LVL13
+ 567 01c3 09010000 		.4byte	0x109
+ 568 01c7 00       		.byte	0
+ 569 01c8 09       		.uleb128 0x9
+ 570 01c9 1D000000 		.4byte	.LASF25
+ 571 01cd 01       		.byte	0x1
+ 572 01ce 1101     		.2byte	0x111
+ 573 01d0 00000000 		.4byte	.LFB6
+ 574 01d4 20000000 		.4byte	.LFE6-.LFB6
+ 575 01d8 01       		.uleb128 0x1
+ 576 01d9 9C       		.byte	0x9c
+ 577 01da F8010000 		.4byte	0x1f8
+ 578 01de 10       		.uleb128 0x10
+ 579 01df 8A010000 		.4byte	.LASF26
+ 580 01e3 01       		.byte	0x1
+ 581 01e4 1101     		.2byte	0x111
+ 582 01e6 6B000000 		.4byte	0x6b
+ 583 01ea 55000000 		.4byte	.LLST3
+ 584 01ee 0E       		.uleb128 0xe
+ 585 01ef 1A000000 		.4byte	.LVL16
+ 586 01f3 09010000 		.4byte	0x109
+ 587 01f7 00       		.byte	0
+ 588 01f8 11       		.uleb128 0x11
+ 589 01f9 92000000 		.4byte	.LASF31
+ 590 01fd 01       		.byte	0x1
+ 591 01fe 1B       		.byte	0x1b
+ 592 01ff 6B000000 		.4byte	0x6b
+ 593 0203 05       		.uleb128 0x5
+ 594 0204 03       		.byte	0x3
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 18
+
+
+ 595 0205 00000000 		.4byte	IDAC_1_initVar
+ 596 0209 00       		.byte	0
+ 597              		.section	.debug_abbrev,"",%progbits
+ 598              	.Ldebug_abbrev0:
+ 599 0000 01       		.uleb128 0x1
+ 600 0001 11       		.uleb128 0x11
+ 601 0002 01       		.byte	0x1
+ 602 0003 25       		.uleb128 0x25
+ 603 0004 0E       		.uleb128 0xe
+ 604 0005 13       		.uleb128 0x13
+ 605 0006 0B       		.uleb128 0xb
+ 606 0007 03       		.uleb128 0x3
+ 607 0008 0E       		.uleb128 0xe
+ 608 0009 1B       		.uleb128 0x1b
+ 609 000a 0E       		.uleb128 0xe
+ 610 000b 55       		.uleb128 0x55
+ 611 000c 17       		.uleb128 0x17
+ 612 000d 11       		.uleb128 0x11
+ 613 000e 01       		.uleb128 0x1
+ 614 000f 10       		.uleb128 0x10
+ 615 0010 17       		.uleb128 0x17
+ 616 0011 00       		.byte	0
+ 617 0012 00       		.byte	0
+ 618 0013 02       		.uleb128 0x2
+ 619 0014 24       		.uleb128 0x24
+ 620 0015 00       		.byte	0
+ 621 0016 0B       		.uleb128 0xb
+ 622 0017 0B       		.uleb128 0xb
+ 623 0018 3E       		.uleb128 0x3e
+ 624 0019 0B       		.uleb128 0xb
+ 625 001a 03       		.uleb128 0x3
+ 626 001b 0E       		.uleb128 0xe
+ 627 001c 00       		.byte	0
+ 628 001d 00       		.byte	0
+ 629 001e 03       		.uleb128 0x3
+ 630 001f 24       		.uleb128 0x24
+ 631 0020 00       		.byte	0
+ 632 0021 0B       		.uleb128 0xb
+ 633 0022 0B       		.uleb128 0xb
+ 634 0023 3E       		.uleb128 0x3e
+ 635 0024 0B       		.uleb128 0xb
+ 636 0025 03       		.uleb128 0x3
+ 637 0026 08       		.uleb128 0x8
+ 638 0027 00       		.byte	0
+ 639 0028 00       		.byte	0
+ 640 0029 04       		.uleb128 0x4
+ 641 002a 16       		.uleb128 0x16
+ 642 002b 00       		.byte	0
+ 643 002c 03       		.uleb128 0x3
+ 644 002d 0E       		.uleb128 0xe
+ 645 002e 3A       		.uleb128 0x3a
+ 646 002f 0B       		.uleb128 0xb
+ 647 0030 3B       		.uleb128 0x3b
+ 648 0031 05       		.uleb128 0x5
+ 649 0032 49       		.uleb128 0x49
+ 650 0033 13       		.uleb128 0x13
+ 651 0034 00       		.byte	0
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 19
+
+
+ 652 0035 00       		.byte	0
+ 653 0036 05       		.uleb128 0x5
+ 654 0037 35       		.uleb128 0x35
+ 655 0038 00       		.byte	0
+ 656 0039 49       		.uleb128 0x49
+ 657 003a 13       		.uleb128 0x13
+ 658 003b 00       		.byte	0
+ 659 003c 00       		.byte	0
+ 660 003d 06       		.uleb128 0x6
+ 661 003e 2E       		.uleb128 0x2e
+ 662 003f 00       		.byte	0
+ 663 0040 3F       		.uleb128 0x3f
+ 664 0041 19       		.uleb128 0x19
+ 665 0042 03       		.uleb128 0x3
+ 666 0043 0E       		.uleb128 0xe
+ 667 0044 3A       		.uleb128 0x3a
+ 668 0045 0B       		.uleb128 0xb
+ 669 0046 3B       		.uleb128 0x3b
+ 670 0047 0B       		.uleb128 0xb
+ 671 0048 27       		.uleb128 0x27
+ 672 0049 19       		.uleb128 0x19
+ 673 004a 11       		.uleb128 0x11
+ 674 004b 01       		.uleb128 0x1
+ 675 004c 12       		.uleb128 0x12
+ 676 004d 06       		.uleb128 0x6
+ 677 004e 40       		.uleb128 0x40
+ 678 004f 18       		.uleb128 0x18
+ 679 0050 9742     		.uleb128 0x2117
+ 680 0052 19       		.uleb128 0x19
+ 681 0053 00       		.byte	0
+ 682 0054 00       		.byte	0
+ 683 0055 07       		.uleb128 0x7
+ 684 0056 2E       		.uleb128 0x2e
+ 685 0057 01       		.byte	0x1
+ 686 0058 3F       		.uleb128 0x3f
+ 687 0059 19       		.uleb128 0x19
+ 688 005a 03       		.uleb128 0x3
+ 689 005b 0E       		.uleb128 0xe
+ 690 005c 3A       		.uleb128 0x3a
+ 691 005d 0B       		.uleb128 0xb
+ 692 005e 3B       		.uleb128 0x3b
+ 693 005f 0B       		.uleb128 0xb
+ 694 0060 27       		.uleb128 0x27
+ 695 0061 19       		.uleb128 0x19
+ 696 0062 11       		.uleb128 0x11
+ 697 0063 01       		.uleb128 0x1
+ 698 0064 12       		.uleb128 0x12
+ 699 0065 06       		.uleb128 0x6
+ 700 0066 40       		.uleb128 0x40
+ 701 0067 18       		.uleb128 0x18
+ 702 0068 9742     		.uleb128 0x2117
+ 703 006a 19       		.uleb128 0x19
+ 704 006b 01       		.uleb128 0x1
+ 705 006c 13       		.uleb128 0x13
+ 706 006d 00       		.byte	0
+ 707 006e 00       		.byte	0
+ 708 006f 08       		.uleb128 0x8
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 20
+
+
+ 709 0070 05       		.uleb128 0x5
+ 710 0071 00       		.byte	0
+ 711 0072 03       		.uleb128 0x3
+ 712 0073 0E       		.uleb128 0xe
+ 713 0074 3A       		.uleb128 0x3a
+ 714 0075 0B       		.uleb128 0xb
+ 715 0076 3B       		.uleb128 0x3b
+ 716 0077 0B       		.uleb128 0xb
+ 717 0078 49       		.uleb128 0x49
+ 718 0079 13       		.uleb128 0x13
+ 719 007a 02       		.uleb128 0x2
+ 720 007b 17       		.uleb128 0x17
+ 721 007c 00       		.byte	0
+ 722 007d 00       		.byte	0
+ 723 007e 09       		.uleb128 0x9
+ 724 007f 2E       		.uleb128 0x2e
+ 725 0080 01       		.byte	0x1
+ 726 0081 3F       		.uleb128 0x3f
+ 727 0082 19       		.uleb128 0x19
+ 728 0083 03       		.uleb128 0x3
+ 729 0084 0E       		.uleb128 0xe
+ 730 0085 3A       		.uleb128 0x3a
+ 731 0086 0B       		.uleb128 0xb
+ 732 0087 3B       		.uleb128 0x3b
+ 733 0088 05       		.uleb128 0x5
+ 734 0089 27       		.uleb128 0x27
+ 735 008a 19       		.uleb128 0x19
+ 736 008b 11       		.uleb128 0x11
+ 737 008c 01       		.uleb128 0x1
+ 738 008d 12       		.uleb128 0x12
+ 739 008e 06       		.uleb128 0x6
+ 740 008f 40       		.uleb128 0x40
+ 741 0090 18       		.uleb128 0x18
+ 742 0091 9742     		.uleb128 0x2117
+ 743 0093 19       		.uleb128 0x19
+ 744 0094 01       		.uleb128 0x1
+ 745 0095 13       		.uleb128 0x13
+ 746 0096 00       		.byte	0
+ 747 0097 00       		.byte	0
+ 748 0098 0A       		.uleb128 0xa
+ 749 0099 05       		.uleb128 0x5
+ 750 009a 00       		.byte	0
+ 751 009b 03       		.uleb128 0x3
+ 752 009c 0E       		.uleb128 0xe
+ 753 009d 3A       		.uleb128 0x3a
+ 754 009e 0B       		.uleb128 0xb
+ 755 009f 3B       		.uleb128 0x3b
+ 756 00a0 05       		.uleb128 0x5
+ 757 00a1 49       		.uleb128 0x49
+ 758 00a2 13       		.uleb128 0x13
+ 759 00a3 02       		.uleb128 0x2
+ 760 00a4 18       		.uleb128 0x18
+ 761 00a5 00       		.byte	0
+ 762 00a6 00       		.byte	0
+ 763 00a7 0B       		.uleb128 0xb
+ 764 00a8 34       		.uleb128 0x34
+ 765 00a9 00       		.byte	0
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 21
+
+
+ 766 00aa 03       		.uleb128 0x3
+ 767 00ab 0E       		.uleb128 0xe
+ 768 00ac 3A       		.uleb128 0x3a
+ 769 00ad 0B       		.uleb128 0xb
+ 770 00ae 3B       		.uleb128 0x3b
+ 771 00af 05       		.uleb128 0x5
+ 772 00b0 49       		.uleb128 0x49
+ 773 00b1 13       		.uleb128 0x13
+ 774 00b2 02       		.uleb128 0x2
+ 775 00b3 17       		.uleb128 0x17
+ 776 00b4 00       		.byte	0
+ 777 00b5 00       		.byte	0
+ 778 00b6 0C       		.uleb128 0xc
+ 779 00b7 898201   		.uleb128 0x4109
+ 780 00ba 01       		.byte	0x1
+ 781 00bb 11       		.uleb128 0x11
+ 782 00bc 01       		.uleb128 0x1
+ 783 00bd 31       		.uleb128 0x31
+ 784 00be 13       		.uleb128 0x13
+ 785 00bf 01       		.uleb128 0x1
+ 786 00c0 13       		.uleb128 0x13
+ 787 00c1 00       		.byte	0
+ 788 00c2 00       		.byte	0
+ 789 00c3 0D       		.uleb128 0xd
+ 790 00c4 8A8201   		.uleb128 0x410a
+ 791 00c7 00       		.byte	0
+ 792 00c8 02       		.uleb128 0x2
+ 793 00c9 18       		.uleb128 0x18
+ 794 00ca 9142     		.uleb128 0x2111
+ 795 00cc 18       		.uleb128 0x18
+ 796 00cd 00       		.byte	0
+ 797 00ce 00       		.byte	0
+ 798 00cf 0E       		.uleb128 0xe
+ 799 00d0 898201   		.uleb128 0x4109
+ 800 00d3 00       		.byte	0
+ 801 00d4 11       		.uleb128 0x11
+ 802 00d5 01       		.uleb128 0x1
+ 803 00d6 31       		.uleb128 0x31
+ 804 00d7 13       		.uleb128 0x13
+ 805 00d8 00       		.byte	0
+ 806 00d9 00       		.byte	0
+ 807 00da 0F       		.uleb128 0xf
+ 808 00db 898201   		.uleb128 0x4109
+ 809 00de 01       		.byte	0x1
+ 810 00df 11       		.uleb128 0x11
+ 811 00e0 01       		.uleb128 0x1
+ 812 00e1 31       		.uleb128 0x31
+ 813 00e2 13       		.uleb128 0x13
+ 814 00e3 00       		.byte	0
+ 815 00e4 00       		.byte	0
+ 816 00e5 10       		.uleb128 0x10
+ 817 00e6 05       		.uleb128 0x5
+ 818 00e7 00       		.byte	0
+ 819 00e8 03       		.uleb128 0x3
+ 820 00e9 0E       		.uleb128 0xe
+ 821 00ea 3A       		.uleb128 0x3a
+ 822 00eb 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 22
+
+
+ 823 00ec 3B       		.uleb128 0x3b
+ 824 00ed 05       		.uleb128 0x5
+ 825 00ee 49       		.uleb128 0x49
+ 826 00ef 13       		.uleb128 0x13
+ 827 00f0 02       		.uleb128 0x2
+ 828 00f1 17       		.uleb128 0x17
+ 829 00f2 00       		.byte	0
+ 830 00f3 00       		.byte	0
+ 831 00f4 11       		.uleb128 0x11
+ 832 00f5 34       		.uleb128 0x34
+ 833 00f6 00       		.byte	0
+ 834 00f7 03       		.uleb128 0x3
+ 835 00f8 0E       		.uleb128 0xe
+ 836 00f9 3A       		.uleb128 0x3a
+ 837 00fa 0B       		.uleb128 0xb
+ 838 00fb 3B       		.uleb128 0x3b
+ 839 00fc 0B       		.uleb128 0xb
+ 840 00fd 49       		.uleb128 0x49
+ 841 00fe 13       		.uleb128 0x13
+ 842 00ff 3F       		.uleb128 0x3f
+ 843 0100 19       		.uleb128 0x19
+ 844 0101 02       		.uleb128 0x2
+ 845 0102 18       		.uleb128 0x18
+ 846 0103 00       		.byte	0
+ 847 0104 00       		.byte	0
+ 848 0105 00       		.byte	0
+ 849              		.section	.debug_loc,"",%progbits
+ 850              	.Ldebug_loc0:
+ 851              	.LLST0:
+ 852 0000 00000000 		.4byte	.LVL0
+ 853 0004 10000000 		.4byte	.LVL1
+ 854 0008 0100     		.2byte	0x1
+ 855 000a 50       		.byte	0x50
+ 856 000b 10000000 		.4byte	.LVL1
+ 857 000f 1C000000 		.4byte	.LFE4
+ 858 0013 0400     		.2byte	0x4
+ 859 0015 F3       		.byte	0xf3
+ 860 0016 01       		.uleb128 0x1
+ 861 0017 50       		.byte	0x50
+ 862 0018 9F       		.byte	0x9f
+ 863 0019 00000000 		.4byte	0
+ 864 001d 00000000 		.4byte	0
+ 865              	.LLST1:
+ 866 0021 0A000000 		.4byte	.LVL3
+ 867 0025 1A000000 		.4byte	.LVL5
+ 868 0029 0100     		.2byte	0x1
+ 869 002b 53       		.byte	0x53
+ 870 002c 00000000 		.4byte	0
+ 871 0030 00000000 		.4byte	0
+ 872              	.LLST2:
+ 873 0034 00000000 		.4byte	.LVL11
+ 874 0038 12000000 		.4byte	.LVL12
+ 875 003c 0100     		.2byte	0x1
+ 876 003e 50       		.byte	0x50
+ 877 003f 12000000 		.4byte	.LVL12
+ 878 0043 20000000 		.4byte	.LFE5
+ 879 0047 0400     		.2byte	0x4
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 23
+
+
+ 880 0049 F3       		.byte	0xf3
+ 881 004a 01       		.uleb128 0x1
+ 882 004b 50       		.byte	0x50
+ 883 004c 9F       		.byte	0x9f
+ 884 004d 00000000 		.4byte	0
+ 885 0051 00000000 		.4byte	0
+ 886              	.LLST3:
+ 887 0055 00000000 		.4byte	.LVL14
+ 888 0059 12000000 		.4byte	.LVL15
+ 889 005d 0100     		.2byte	0x1
+ 890 005f 50       		.byte	0x50
+ 891 0060 12000000 		.4byte	.LVL15
+ 892 0064 20000000 		.4byte	.LFE6
+ 893 0068 0400     		.2byte	0x4
+ 894 006a F3       		.byte	0xf3
+ 895 006b 01       		.uleb128 0x1
+ 896 006c 50       		.byte	0x50
+ 897 006d 9F       		.byte	0x9f
+ 898 006e 00000000 		.4byte	0
+ 899 0072 00000000 		.4byte	0
+ 900              		.section	.debug_aranges,"",%progbits
+ 901 0000 5C000000 		.4byte	0x5c
+ 902 0004 0200     		.2byte	0x2
+ 903 0006 00000000 		.4byte	.Ldebug_info0
+ 904 000a 04       		.byte	0x4
+ 905 000b 00       		.byte	0
+ 906 000c 0000     		.2byte	0
+ 907 000e 0000     		.2byte	0
+ 908 0010 00000000 		.4byte	.LFB1
+ 909 0014 1C000000 		.4byte	.LFE1-.LFB1
+ 910 0018 00000000 		.4byte	.LFB3
+ 911 001c 1C000000 		.4byte	.LFE3-.LFB3
+ 912 0020 00000000 		.4byte	.LFB4
+ 913 0024 1C000000 		.4byte	.LFE4-.LFB4
+ 914 0028 00000000 		.4byte	.LFB7
+ 915 002c 0C000000 		.4byte	.LFE7-.LFB7
+ 916 0030 00000000 		.4byte	.LFB8
+ 917 0034 34000000 		.4byte	.LFE8-.LFB8
+ 918 0038 00000000 		.4byte	.LFB0
+ 919 003c 24000000 		.4byte	.LFE0-.LFB0
+ 920 0040 00000000 		.4byte	.LFB2
+ 921 0044 24000000 		.4byte	.LFE2-.LFB2
+ 922 0048 00000000 		.4byte	.LFB5
+ 923 004c 20000000 		.4byte	.LFE5-.LFB5
+ 924 0050 00000000 		.4byte	.LFB6
+ 925 0054 20000000 		.4byte	.LFE6-.LFB6
+ 926 0058 00000000 		.4byte	0
+ 927 005c 00000000 		.4byte	0
+ 928              		.section	.debug_ranges,"",%progbits
+ 929              	.Ldebug_ranges0:
+ 930 0000 00000000 		.4byte	.LFB1
+ 931 0004 1C000000 		.4byte	.LFE1
+ 932 0008 00000000 		.4byte	.LFB3
+ 933 000c 1C000000 		.4byte	.LFE3
+ 934 0010 00000000 		.4byte	.LFB4
+ 935 0014 1C000000 		.4byte	.LFE4
+ 936 0018 00000000 		.4byte	.LFB7
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 24
+
+
+ 937 001c 0C000000 		.4byte	.LFE7
+ 938 0020 00000000 		.4byte	.LFB8
+ 939 0024 34000000 		.4byte	.LFE8
+ 940 0028 00000000 		.4byte	.LFB0
+ 941 002c 24000000 		.4byte	.LFE0
+ 942 0030 00000000 		.4byte	.LFB2
+ 943 0034 24000000 		.4byte	.LFE2
+ 944 0038 00000000 		.4byte	.LFB5
+ 945 003c 20000000 		.4byte	.LFE5
+ 946 0040 00000000 		.4byte	.LFB6
+ 947 0044 20000000 		.4byte	.LFE6
+ 948 0048 00000000 		.4byte	0
+ 949 004c 00000000 		.4byte	0
+ 950              		.section	.debug_line,"",%progbits
+ 951              	.Ldebug_line0:
+ 952 0000 F5000000 		.section	.debug_str,"MS",%progbits,1
+ 952      02004300 
+ 952      00000201 
+ 952      FB0E0D00 
+ 952      01010101 
+ 953              	.LASF2:
+ 954 0000 73686F72 		.ascii	"short int\000"
+ 954      7420696E 
+ 954      7400
+ 955              	.LASF23:
+ 956 000a 49444143 		.ascii	"IDAC_1_SetPolarity\000"
+ 956      5F315F53 
+ 956      6574506F 
+ 956      6C617269 
+ 956      747900
+ 957              	.LASF25:
+ 958 001d 49444143 		.ascii	"IDAC_1_SetRange\000"
+ 958      5F315F53 
+ 958      65745261 
+ 958      6E676500 
+ 959              	.LASF30:
+ 960 002d 6D6F6465 		.ascii	"mode\000"
+ 960      00
+ 961              	.LASF19:
+ 962 0032 76616C75 		.ascii	"value\000"
+ 962      6500
+ 963              	.LASF12:
+ 964 0038 75696E74 		.ascii	"uint8\000"
+ 964      3800
+ 965              	.LASF9:
+ 966 003e 666C6F61 		.ascii	"float\000"
+ 966      7400
+ 967              	.LASF6:
+ 968 0044 6C6F6E67 		.ascii	"long long int\000"
+ 968      206C6F6E 
+ 968      6720696E 
+ 968      7400
+ 969              	.LASF29:
+ 970 0052 433A5C55 		.ascii	"C:\\Users\\Akash\\Downloads\\Group_5_Project\\proje"
+ 970      73657273 
+ 970      5C416B61 
+ 970      73685C44 
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 25
+
+
+ 970      6F776E6C 
+ 971 0080 63742E63 		.ascii	"ct.cydsn\000"
+ 971      7964736E 
+ 971      00
+ 972              	.LASF4:
+ 973 0089 6C6F6E67 		.ascii	"long int\000"
+ 973      20696E74 
+ 973      00
+ 974              	.LASF31:
+ 975 0092 49444143 		.ascii	"IDAC_1_initVar\000"
+ 975      5F315F69 
+ 975      6E697456 
+ 975      617200
+ 976              	.LASF20:
+ 977 00a1 49444143 		.ascii	"IDAC_1_DacTrim\000"
+ 977      5F315F44 
+ 977      61635472 
+ 977      696D00
+ 978              	.LASF21:
+ 979 00b0 49444143 		.ascii	"IDAC_1_Init\000"
+ 979      5F315F49 
+ 979      6E697400 
+ 980              	.LASF1:
+ 981 00bc 756E7369 		.ascii	"unsigned char\000"
+ 981      676E6564 
+ 981      20636861 
+ 981      7200
+ 982              	.LASF24:
+ 983 00ca 706F6C61 		.ascii	"polarity\000"
+ 983      72697479 
+ 983      00
+ 984              	.LASF14:
+ 985 00d3 49444143 		.ascii	"IDAC_1_Enable\000"
+ 985      5F315F45 
+ 985      6E61626C 
+ 985      6500
+ 986              	.LASF0:
+ 987 00e1 7369676E 		.ascii	"signed char\000"
+ 987      65642063 
+ 987      68617200 
+ 988              	.LASF17:
+ 989 00ed 49444143 		.ascii	"IDAC_1_SetValue\000"
+ 989      5F315F53 
+ 989      65745661 
+ 989      6C756500 
+ 990              	.LASF7:
+ 991 00fd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 991      206C6F6E 
+ 991      6720756E 
+ 991      7369676E 
+ 991      65642069 
+ 992              	.LASF8:
+ 993 0114 756E7369 		.ascii	"unsigned int\000"
+ 993      676E6564 
+ 993      20696E74 
+ 993      00
+ 994              	.LASF18:
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 26
+
+
+ 995 0121 73706565 		.ascii	"speed\000"
+ 995      6400
+ 996              	.LASF3:
+ 997 0127 73686F72 		.ascii	"short unsigned int\000"
+ 997      7420756E 
+ 997      7369676E 
+ 997      65642069 
+ 997      6E7400
+ 998              	.LASF11:
+ 999 013a 63686172 		.ascii	"char\000"
+ 999      00
+ 1000              	.LASF22:
+ 1001 013f 49444143 		.ascii	"IDAC_1_Start\000"
+ 1001      5F315F53 
+ 1001      74617274 
+ 1001      00
+ 1002              	.LASF13:
+ 1003 014c 72656738 		.ascii	"reg8\000"
+ 1003      00
+ 1004              	.LASF5:
+ 1005 0151 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1005      20756E73 
+ 1005      69676E65 
+ 1005      6420696E 
+ 1005      7400
+ 1006              	.LASF10:
+ 1007 0163 646F7562 		.ascii	"double\000"
+ 1007      6C6500
+ 1008              	.LASF28:
+ 1009 016a 47656E65 		.ascii	"Generated_Source\\PSoC5\\IDAC_1.c\000"
+ 1009      72617465 
+ 1009      645F536F 
+ 1009      75726365 
+ 1009      5C50536F 
+ 1010              	.LASF26:
+ 1011 018a 72616E67 		.ascii	"range\000"
+ 1011      6500
+ 1012              	.LASF16:
+ 1013 0190 49444143 		.ascii	"IDAC_1_SetSpeed\000"
+ 1013      5F315F53 
+ 1013      65745370 
+ 1013      65656400 
+ 1014              	.LASF27:
+ 1015 01a0 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1015      43313120 
+ 1015      352E342E 
+ 1015      31203230 
+ 1015      31363036 
+ 1016 01d3 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1016      20726576 
+ 1016      6973696F 
+ 1016      6E203233 
+ 1016      37373135 
+ 1017 0206 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1017      66756E63 
+ 1017      74696F6E 
+ 1017      2D736563 
+ARM GAS  C:\Users\Akash\AppData\Local\Temp\ccQpwndl.s 			page 27
+
+
+ 1017      74696F6E 
+ 1018              	.LASF15:
+ 1019 022e 49444143 		.ascii	"IDAC_1_Stop\000"
+ 1019      5F315F53 
+ 1019      746F7000 
+ 1020              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
