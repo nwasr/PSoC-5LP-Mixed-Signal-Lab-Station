@@ -12,7 +12,7 @@
 #define DECIM_FACTOR       2u
 
 /* ---------- waveform generator ---------- */
-#define LUT_SIZE           64u
+#define LUT_SIZE           128u
 #define WAVE_CLK_HZ        1000000u
 
 /* ---------- R measurement ---------- */
@@ -482,3 +482,4 @@ int main(void)
         /* should never get here */
     }
 }
+
